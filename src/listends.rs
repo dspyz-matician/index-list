@@ -5,8 +5,8 @@
  */
 //! The defenition of the ListEnds type
 //!
-use std::{default::Default, fmt, mem};
 use crate::listindex::ListIndex;
+use std::{default::Default, fmt, mem};
 
 #[derive(Clone, Debug, Default)]
 pub struct ListEnds {

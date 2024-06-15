@@ -4,8 +4,8 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 //! The definition of the ListDrainIter type
-use std::iter::{DoubleEndedIterator, FusedIterator};
 use crate::{listiter::ListIter, IndexList};
+use std::iter::{DoubleEndedIterator, FusedIterator};
 
 /// A consuming interator that will remove elements from the list as it is
 /// iterating over them. The iterator is fused and can also be reversed.

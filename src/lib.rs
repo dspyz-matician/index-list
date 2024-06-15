@@ -16,17 +16,17 @@
 #![forbid(unsafe_code)]
 
 pub mod listdrainiter;
+mod listends;
 pub mod listindex;
 pub mod listiter;
 mod listnode;
-mod listends;
 
-use std::{cmp::Ordering, default::Default, fmt};
+pub use crate::listdrainiter::ListDrainIter;
+pub use crate::listindex::ListIndex;
+pub use crate::listiter::ListIter;
+use crate::{listends::ListEnds, listnode::ListNode};
 use std::iter::{Extend, FromIterator};
-use crate::{listnode::ListNode, listends::ListEnds};
-pub use crate::listindex::ListIndex as ListIndex;
-pub use crate::listiter::ListIter as ListIter;
-pub use crate::listdrainiter::ListDrainIter as ListDrainIter;
+use std::{cmp::Ordering, default::Default, fmt};
 pub type Index = ListIndex; // for backwards compatibility with 0.2.7
 
 /// Doubly-linked list implemented in safe Rust.
@@ -954,11 +954,10 @@ impl<T> IndexList<T> {
     }
     #[inline]
     fn remove_elem_at_index(&mut self, this: ListIndex) -> Option<T> {
-        this.get()
-            .and_then(|at| {
-                self.size -= 1;
-                self.elems[at].take()
-            })
+        this.get().and_then(|at| {
+            self.size -= 1;
+            self.elems[at].take()
+        })
     }
     fn new_node(&mut self, elem: Option<T>) -> ListIndex {
         let reuse = self.free.head;
