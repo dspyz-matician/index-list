@@ -18,15 +18,19 @@
 pub mod listdrainiter;
 pub mod listindex;
 pub mod listiter;
-mod listnode;
-mod listends;
 
-use std::{cmp::Ordering, default::Default, fmt};
+mod listends;
+mod listnode;
+
 use std::iter::{Extend, FromIterator};
-use crate::{listnode::ListNode, listends::ListEnds};
-pub use crate::listindex::ListIndex as ListIndex;
-pub use crate::listiter::ListIter as ListIter;
-pub use crate::listdrainiter::ListDrainIter as ListDrainIter;
+use std::{cmp::Ordering, default::Default, fmt};
+
+use crate::{listends::ListEnds, listnode::ListNode};
+
+pub use crate::listdrainiter::ListDrainIter;
+pub use crate::listindex::ListIndex;
+pub use crate::listiter::ListIter;
+
 pub type Index = ListIndex; // for backwards compatibility with 0.2.7
 
 /// Doubly-linked list implemented in safe Rust.
