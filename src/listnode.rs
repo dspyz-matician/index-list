@@ -6,6 +6,7 @@
 //! The difinition of the ListNode type
 //!
 use std::{default::Default, fmt, mem};
+
 use crate::listindex::ListIndex;
 
 #[derive(Clone, Debug, Default)]

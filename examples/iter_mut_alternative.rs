@@ -6,8 +6,7 @@
 use index_list::IndexList;
 
 fn main() {
-    let mut items =
-        "ONE TWO THREE".split(' ').map(String::from).collect();
+    let mut items = "ONE TWO THREE".split(' ').map(String::from).collect();
     let mut list: IndexList<String> = IndexList::from(&mut items);
     let mut index = list.first_index();
     while index.is_some() {
