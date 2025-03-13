@@ -13,8 +13,6 @@
 //! A new IndexList can be created empty with the `new` method, or created from
 //! an existing vector with `IndexList::from`.
 //!
-#![forbid(unsafe_code)]
-
 pub mod listdrainiter;
 pub mod listindex;
 pub mod listiter;
@@ -30,6 +28,7 @@ use crate::{listends::ListEnds, listnode::ListNode};
 pub use crate::listdrainiter::ListDrainIter;
 pub use crate::listindex::ListIndex;
 pub use crate::listiter::ListIter;
+pub use crate::listiter::ListIterMut;
 
 pub type Index = ListIndex; // for backwards compatibility with 0.2.7
 
@@ -698,7 +697,7 @@ impl<T> IndexList<T> {
     /// Example:
     /// ```rust
     /// # use index_list::IndexList;
-    /// # let mut list = IndexList::from(&mut vec![120, 240, 360]);
+    /// let list = IndexList::from_iter([120, 240, 360]);
     /// let total: usize = list.iter().sum();
     /// assert_eq!(total, 720);
     /// ```
@@ -709,6 +708,26 @@ impl<T> IndexList<T> {
             start: self.first_index(),
             end: self.last_index(),
             len: self.len(),
+        }
+    }
+    /// Create a new iterator over all the elements.
+    ///
+    /// Example:
+    /// ```rust
+    /// # use index_list::IndexList;
+    /// let mut list = IndexList::from_iter([120, 240, 360]);
+    /// for item in list.iter_mut() {
+    ///     *item *= 2;
+    /// }
+    /// assert_eq!(list.to_vec(), vec![&240, &480, &720]);
+    /// ```
+    #[inline]
+    pub fn iter_mut(&mut self) -> ListIterMut<T> {
+        ListIterMut {
+            start: self.first_index(),
+            end: self.last_index(),
+            len: self.len(),
+            list: self,
         }
     }
     /// Create a draining iterator over all the elements.

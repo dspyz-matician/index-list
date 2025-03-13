@@ -198,6 +198,14 @@ fn test_inexhausted_drain_clears_list() {
     assert_eq!(list.len(), 0);
 }
 #[test]
+fn test_iter_mut() {
+    let mut list = IndexList::<u64>::from_iter([1, 2, 3]);
+    for elem in list.iter_mut() {
+        *elem += 1;
+    }
+    assert_eq!(list.to_string(), "[2 >< 3 >< 4]");
+}
+#[test]
 fn insert_remove_variants() {
     let count = 256;
     let mut rng = rand::thread_rng();
